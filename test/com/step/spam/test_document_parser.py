@@ -38,5 +38,15 @@ class TestEmails(unittest.TestCase):
 
     def test_shouldCalculateProbabilityGivenEmailBeingSpam(self):
         probability = self.emails.probabilityOfEmailBeingSpam(["offer", "win", "congratulations"])
-        self.assertEqual(0,probability)
+        print "Probability", probability
+        probability = self.emails.probabilityOfEmailBeingSpam(["lost", "and", "found"])
+        print "Probability", probability
+        probability = self.emails.probabilityOfEmailBeingSpam(["congratulations", "you", "have", "won"])
+        print "Probability", probability
+        probability = self.emails.probabilityOfEmailBeingSpam(["congratulations", "you", "have", "lost"])
+        print "Probability", probability
+        probability = self.emails.probabilityOfEmailBeingSpam(["discount"])
+        print "Probability", probability
+        self.assertFalse(1,probability)
+        probability = self.emails.probabilityOfEmailBeingSpam(["machinelearning"])
 

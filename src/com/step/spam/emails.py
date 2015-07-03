@@ -34,15 +34,15 @@ class Emails(object):
         return frequencyMap
 
     def probabilityOf(self, word):
-        return Decimal(self.wordFrequencyMap()[word]) / Decimal(len(self.allWords()))
+        return Decimal(self.wordFrequencyMap()[word]) / Decimal(len(set(self.allWords())))
 
     def probabilityOfWordGivenSpam(self, word):
-        return Decimal(self.spamWordFrequencyMap()[word]) / Decimal(len(self.allSpamWords()))
+        return Decimal(self.spamWordFrequencyMap()[word]) / Decimal(len(set(self.allSpamWords())))
 
     def probabilityOfEmailBeingSpam(self, words):
         partOfNumerator = Decimal(1)
-        denominator = Decimal(1)
+        denominator = Decimal(0)
         for word in words:
             partOfNumerator *= Decimal(self.probabilityOfWordGivenSpam(word))
-            denominator *= Decimal(self.probabilityOf(word))
+            denominator += Decimal(self.probabilityOf(word))
         return (partOfNumerator * Decimal(0.5)) / denominator
